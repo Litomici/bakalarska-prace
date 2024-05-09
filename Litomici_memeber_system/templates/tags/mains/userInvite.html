@@ -1,0 +1,28 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    {% include "tags/pageComponents/sideNavbar.html" %}
+    
+    <div class="content">
+    {% block Content %}
+    <script>
+        function msgShow(txt) {
+          alert(txt);
+        }
+    </script>
+        <h1>Přizvěte další osobu do vašeho účtu</h1><br>
+        {% for message in messages%}
+        <script>
+                msgShow("{{message}}");
+        </script>
+        {{message}}
+        {%endfor%}
+        
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.newUserEmail.label_tag }}
+            {{ form.newUserEmail }}
+            <button type="submit" class="btn btn-lg btn-primary">Odeslat Pozvánku</button>
+        </form>
+    {% endblock %}
+</div>
+{% endblock %}

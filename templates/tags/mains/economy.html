@@ -1,0 +1,196 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Platby a finance</h1>
+        <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                {% if action == 1 %}
+                    <a class="nav-link active" href="#">Očekávané</a>
+                {% else %}
+                <a class="nav-link" href="{% url "account:economy" %}">Očekávané</a>
+                {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if action == 2 %}
+                    <a class="nav-link active" href="#">Uhrazené</a>
+                {% else %}
+                <a class="nav-link" href="{% url "account:payed" %}">Uhrazené</a>
+                {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if action == 3 %}
+                    <a class="nav-link active" href="#">Peněženky účtů</a>
+                {% else %}
+                <a class="nav-link" href="{% url "account:payments" %}">Peněženky účtů</a>
+                {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if action == 4 %}
+                    <a class="nav-link active" href="#">Zadat platbu manuálně</a>
+                {% else %}
+                <a class="nav-link" href="{% url "account:manualP" %}">Zadat platbu manuálně</a>
+                {% endif %}
+                </li>
+                <li class="nav-item">
+                    {% if action == 5 %}
+                    <a class="nav-link active" href="#">Nahrát výpis</a>
+                {% else %}
+                <a class="nav-link" href="{% url "account:bankTransactions" %}">Nahrát výpis</a>
+                {% endif %}
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+              {% if action == 1 %}
+              <h5 class="card-title">Výčet plateb</h5>
+              <p class="card-text">
+                {% for p in payments %}
+                <div class="card">
+                    <h5 class="card-header">{{p.creation_date}} Částka {{p.amount}}Kč</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">Z účtu {{p.account}}
+                        
+                        {% for m in p.account.member.all %}
+                            {{m.jmeno}} {{m.surname}},
+                        {% endfor %}
+                        </h5>
+                        <p class="card-text">Platba: {{p.payment_id}} zadána {{ p.creation_date|date:" d. m. Y" }}<br>
+                            Stav: Čeká na potvrzení z banky <br>
+                            Očekávaný variabilní symbol: {{p.var_symbol}}
+                        </p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Potvrdit příchod platby    
+                        </button>
+                        <div class="collapse" id="collapseExample">
+                            <form method="post" action="{% url "account:economy" %}">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                      <label for="inputCity">Částka</label>
+                                      <input type="number" step="0.1" value="{{p.amount}}" readonly min="0" class="form-control" id="inputCity" name="amount" required>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputCity"><br> </label>
+                                        <input type="text" class="form-control" readonly value="Kč" id="inputZip" required>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                      <label for="inputState">Zaplatil</label>
+                                      <input type="text" id="inputState" class="form-control" name="acc" value="{{p.account.id}}" readonly>
+                                    </div>
+                                </div>
+                                <div id="additionalInput1" style="form-row">
+                                        <div class="form-group">
+                                            <label for="From">Z účtu</label>
+                                            <input type="text" class="form-control" id="From" aria-describedby="from" name="from">
+                                            <small id="from" class="form-text text-muted">zadejte číslo s účtu i s lomítkem. např.: 123456789/0123</small>
+                                          </div>
+                                        <div class="form-group">
+                                            <label for="Date">Datum platby</label>
+                                            <input type="date" class="form-control" id="Date" name="payed" aria-describedby="date">
+                                            <small id="date" class="form-text text-muted">datum platby ve fromátu měsíc/den/rok</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Tid">Číslo transakce</label>
+                                            <input type="text" class="form-control" id="Tid" name="nmT" aria-describedby="tid">
+                                            <small id="tid" class="form-text text-muted">Ve výpisu jako "Kód transakce"</small>
+                                        </div>
+                                        <input type="text" name="Pid" style="display:none" value="{{p.payment_id}}">
+                                    </div>
+                                <button type="submit" class="btn btn-success">Potvrdit platbu</button>
+                                </div>
+                            </form>
+                        </div>
+                  </div>
+                  {% endfor %}
+                </p>
+                {% elif action == 2 %}
+                <h5 class="card-title">Výčet uzavřených plateb</h5>
+                <p class="card-text">
+                  {% for p in payments %}
+                  <div class="card">
+                      <h5 class="card-header">{{p.creation_date}} Částka {{p.amount}}Kč</h5>
+                      <div class="card-body">
+                        <h5 class="card-title">Z účtu {{p.account}}
+                          ({% for m in p.account.member.all %}
+                          {{m.jmeno}} {{m.surname}},
+                          {% endfor %})
+                      </h5>
+                        <p class="card-text">Uhrazeno: {{p.payed_date}} z účtu {{p.payed_from}}<br>
+                          Číslo transakce: {{p.transaction_number}}
+                      </p>
+                        
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </p>
+                {% elif action == 3 %}
+                <h5 class="card-title">Účty a jejich konta</h5>
+                <p class="card-text">
+                {% for a in acounts%}
+                <div class="card">
+                    <h5 class="card-header">{{a.user.username}}</h5>
+                    <div class="card-body">
+                      <h5 class="card-title">{{a.wallet}}</h5>
+                      <p class="card-text">Členové: {% for m in a.member.all %}
+                        {{m.jmeno}} {{m.surname}},
+                        {% endfor %}
+                    </p>
+                    <form method="post" action="{% url "account:need2pay" a.id %}">
+                        {% csrf_token %}
+                        <label for="{{a.user.username}}">Částka k úhradě</label>
+                        <input type="number"  id="{{a.user.username}}" name="2pay" required>
+                        <input type="submit" class="btn-warning" value="Odečíst z částku z účtu">
+                        <a href="{% url 'account:notify2pay' a.id %}"><input type="button" class="btn-success"value="Poslat upozornění k úhradě"></a>
+                    </form>
+
+                    </div>
+                  </div>
+                  {% endfor %}
+                </p>
+               {%elif action == 4 %}
+                <p>
+                    <h5>Zadat platbu ručně</h5>
+                    {%include "tags/pageComponents/ManualPayment.html"%}
+                </p>
+                {%elif action == 5 %}
+                <p>
+                    <form method="post" action="{% url 'account:bankTransactions'%}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        
+                        <div class="">
+                            <label for="cfileInput" class="form-check-label">Vyberte soubor:</label>
+                            {{ form.file }}
+                        </div>
+                        <input type="submit" value="Zpracovat soubor" class="btn btn-light">
+                    </form>
+                    {% if postDone %}
+                    <div class="">
+                        <h6>Výsledky z nahraného výpisu</h6>
+                        Z vloženého výpisu bylo zařazeno {{succ}} plateb.<br>
+                        Také se našlo {{fail}} plateb, které nebyly rozpoznány.<br>
+                        {% for p in unknown  %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <b>Platba č. {{p.id}} ({{p.date_eff}})</b><br>
+                                Variabilní symbol: {{p.var_sym}}<br>
+                                Částka: {{p.amount}}<br>
+                                Zpráva příjemci: "{{p.msg}}"
+                            </div>
+                        </div>
+                            <br>
+                        {% endfor %}   
+                    </div>
+                    {% endif %}
+                    
+                </p>
+                {% endif %}
+            </div>
+          </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

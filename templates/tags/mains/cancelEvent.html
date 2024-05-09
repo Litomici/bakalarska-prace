@@ -1,0 +1,85 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+        {% block Content %}
+            <div class="profile" id="Profile">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>{{event.name}}</h1>
+                        <h2>
+                            {% if event.meeting|date:"d" == event.ending|date:"d" %}
+                            {{event.meeting|date:"d"}}. {{event.meeting|date:"m"}}. {{event.meeting|date:"Y"}}
+                            {% else %}
+                            Od {{event.meeting|date:"d"}}. {{event.meeting|date:"m"}}. {{event.meeting|date:"Y"}} do {{event.ending|date:"d"}}. {{event.ending|date:"m"}}. {{event.ending|date:"Y"}}
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <h3>O akci</h3>
+                        <ul class="list-group list-group-flush event-info-list">
+                            <li class="list-group-item"><span class="event-info-headline">Sraz:</span>&emsp; {{event.departure}} v {{ event.meeting|time:"H:i" }}</li>
+                            <li class="list-group-item"><span class="event-info-headline">Konec:</span>&emsp; {{event.arrival}} v {{ event.ending|time:"H:i" }}</li>
+                            <li class="list-group-item"><span class="event-info-headline">Cena z osobu</span>&emsp;{{event.price}}Kč</li>
+                            <li class="list-group-item"><span class="event-info-headline">kapacita:</span>&emsp; {{event.assigned.all|length }}/{{event.capacity}}</li>
+                            <li class="list-group-item"><span class="event-info-headline">Cíl akce:</span>&emsp;{{event.destination}}</li>
+                        </ul>
+                        <h5>Podrobnější popis akce</h5>
+                        <p class="card-text">
+                          {{event.description}}
+                        </p>
+                        <h5>Co s sebou?</h5>
+                        <p class="card-text">
+                          {{event.notes}}
+                        </p>
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#signed" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Přihlášení
+                            </a>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#cancelFormDIV" aria-expanded="false" aria-controls="collapseExample">
+                                Zrušit akci
+                            </button>
+                        </p>
+                        <div class="collapse" id="signed">
+                            <div class="card card-body">        
+                                {% if event.assigned.all %}
+                                   <h4>Přihlášení jsou:</h4><br>
+                                      <ul class="signing-form">
+                                          {% for member in event.assigned.all %}
+                                          <li>
+                                              {{ member.jmeno }} {{ member.surname }}
+                                          </li>
+                                          {% endfor %}
+                                      </ul>
+                                {% else %}
+                                    <p>Zatím není nikdo přihlášen</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div id="cancelFormDIV">
+                            <form method="post" id="CancelForm" name="cancelForm" action="">
+                                {% csrf_token %}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input class="form-control" readonly value="{{event.name}} ({{ event.meeting|date:"d" }}.{{ event.meeting|date:"m" }}. {{ event.meeting|date:"Y" }})">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        {{form.event_id}}
+                                    </div>
+                                </div>
+                                <div class="form-multiline">
+                                    {{form.reason.label}}
+                                    {{form.reason}}
+                                </div>
+                                <div class="form-line">
+                                    <div class="extraspace-right">{{form.sendMail}}</div>
+                                    <div class="">{{form.sendMail.label}}</div>
+                                </div>
+                                <input type="submit" class="btn btn-danger" value="Zrušit akci">
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %} 

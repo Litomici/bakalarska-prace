@@ -1,0 +1,20 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    {% include "tags/pageComponents/sideNavbar.html" %}
+    <div class="content">
+    {% block Content %}
+    <h2>Přidejsi členy tohoto účtu</h2>
+  <form method="post" action='/addMember'>
+    {% csrf_token %}
+    <label for="member_id">Select a Member:</label>
+    <select name="member_id" id="member_id">
+      {% for member in available_members %}
+        <option value="{{ member.id }}">{{ member.jmeno }} {{ member.surname }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit">Přidat zvoleného člena</button>
+  </form>
+  <h3>Nenašli jste člena v seznamu členů? Přidejte ho ručně. <a href="/createMemeber"><button>Vytvořit nového člena</button></a>
+    {% endblock %}
+</div>
+{% endblock %}

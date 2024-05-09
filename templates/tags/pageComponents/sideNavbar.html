@@ -1,0 +1,18 @@
+<ul>
+    <a href="{% url "account:profile" %}"><li id="nav-profile" >Profil</li></a>
+    <a href="{% url "event:listAll" %}"><li id="nav-profile" >Rozvrh akcí</li></a>
+    <a href="{% url "account:sendMSG" %}"><li id="nav-profile" >Kontaktuj nás</li></a>
+    <a href="{% url "event:listCamps" %}"><li id="nav-camps" >Tábory</li></a>
+    {% if role >= 1 %}
+    <!-- for leader-->
+        <a href="{% url "event:tool"%}"><li>správa akcí</li></a>
+    {% endif %}
+    {% if role >= 2 %}
+    <!-- for econom -->
+    <a href="{% url "account:economy" %}"> <li>Platby</li></a>
+    {% endif %}
+    {%if  role >= 3 %}
+    <!-- for Admin/heads -->
+    <a href="{% url "account:showMembers" %}"><li>Správa členů</li></a>
+    {% endif %}
+</ul>

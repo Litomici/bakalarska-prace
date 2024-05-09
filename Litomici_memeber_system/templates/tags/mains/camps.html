@@ -1,0 +1,83 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+{% load static %}
+    <div class="content">
+    {% block Content %}
+    <div class="welcome" id="Welcome">
+        <style>
+            .winter{ background-image: url("{% static 'img/winter.jpg' %}");}
+            .spring{ background-image: url("{% static 'img/spring.jpg' %}");}
+            .summer{ background-image: url("{% static 'img/summer.jpg' %}");}
+            .autmn{ background-image: url("{% static 'img/autmn.jpg' %}");}
+        </style>
+        <div class="camps" id="Camps">
+            
+            <h1>Vyberty si z nabídky našich táborů</h1><br>
+            <div class="board">
+                {%for camp in camps%}
+                <div class="cards">
+                    <div class="inner-card">
+                        {% with camp.meeting|date:"m" as month %}
+                        <div class="front {% if month == '12' or month == '01' or month == '02' %}winter{% elif month == '03' or month == '04' or month == '05' %}spring{% elif month == '06' or month == '07' or month == '08' %}summer{% elif month == '09' or month == '10' or month == '11' %}autmn{% endif %}">
+                        {% endwith %}
+                            <h2>{{camp.name}}</h2>
+                            <h6>
+                                {{ camp.meeting|date:"d" }}.{{ camp.meeting|date:"m" }}. {{ camp.meeting|date:"Y" }} - {{ camp.ending|date:"d" }}.{{ camp.ending|date:"m" }}. {{ camp.ending|date:"Y" }}
+                            </h6>
+                            <button>Mám Zájem</button>
+                        </div>
+                        <div class="back">
+                            <h2>{{camp.destination}}</h2>
+                            <p class="description">
+                            {{camp.description}}
+                            </p>
+                            <div class="data-line">
+                                <div class="data">
+                                    <h3>{{camp.price}} Kč</h3><p>Cena</p></div>
+                                <div class="data"><h3>{{camp.assigned.all|length }}/{{camp.capacity}}</h3><p>Místa</p></div>
+                                <div class="data"><h3>
+                                    {%if camp.travel%}
+                                    Společná
+                                    {%else%}
+                                    Vlastní
+                                    {%endif%}
+                                </h3><p>Doprava</p></div>
+                            </div>
+                            <div class="btn-row">
+                                <button>Přihlásit se</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% comment %} <div class="card">
+                    <div class="inner-card">
+                        <div class="front spring" >
+                            <h2>Jarní tábor</h2>
+                            <button>Mám Zájem</button>
+                        </div>
+                        <div class="back">
+                            <h2>Výprava Sloup v Čechách</h2>
+                            <p>
+                            Pětidenní tábor do pískovcových skal. Ubytování v Asociační chalupě. Program zahrnuje výlety do okolí Sloupu, zimní radovánky a odpočinek od školních povinností.
+                            </p>
+                            <div class="data-line">
+                                <div class="data">
+                                    <h3>1500 Kč</h3><p>Cena</p></div>
+                                <div class="data"><h3>0/28</h3><p>Místa</p></div>
+                                <div class="data"><h3>Vlastní</h3><p>Doprava</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <button>Přihlásit se</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endcomment %}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Datum</th>
+        <th scope="col">Jméno akce</th>
+        <th class="capPadding" scope="col">Kapacita</th>
+        <th class="wideScreen" scope="col">Detaily</th>
+        <th scope="col">Akce</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+        <tr>
+          <th scope="row">{{ event.meeting|date:"F d, Y H:i" }}</th>
+          <td>{{ event.name }}</td>
+          <td class="capPadding">{{event.assigned.all|length }}/{{event.capacity}}</td>
+          <td class="wideScreen"><a href="{% url "event:details" event.id %}">Info</td>
+            <td> <a href="{% url "event:tool-cancelOfEvent" event.id %}"  type=button class="btn btn-primary" type="button">
+              Zrušit
+            </a>
+            </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>

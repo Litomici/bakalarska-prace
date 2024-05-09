@@ -1,0 +1,28 @@
+{% extends "tags/foundations/notLoggedFoundation.html" %}
+{%block main%}
+<main>
+    <div class="banner">
+    
+    </div>
+    
+    <div class="login">
+    <form action="/login" method="post" class="logging">
+        {% csrf_token %}
+        <h1>Přihlaste se</h1>
+        <label for="mail">Emailová adresa44:</label>
+        <input type="text" class="data" name="mail" id="mail" placeholder="email" required ><br>
+        <label for="mail">Heslo: </label>
+        <input type="password" class="data" name="pass" id="pass" placeholder="password" required><br>
+        {% for message in messages %}
+        <p><b>Přihlášení se nepovedlo: </b>{{message}}</p>
+        {% endfor %}
+        <input type="submit" class="submit" value="Přihlásit"><br>
+        <div class="log-questions">
+            <p>Nemáš účet?<a href="/register">Zaregistruj se </a></p>
+            <br> <p> Zapomněl jsi heslo? <a href="password_reset">Zapomenuté heslo</a></p>
+        </div>
+    </form>
+    </div>
+    
+</main>
+{% endblock %}

@@ -1,0 +1,98 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('myForm');
+        var input1 = document.getElementById('additionalInput1');
+        var input2 = document.getElementById('additionalInput2');
+    
+        form.addEventListener('change', function() {
+            if (document.querySelector('input[name="paymentType"]:checked').value === 'option1') {
+                input1.style.display = 'block';
+                input2.style.display = 'none';
+            } else if (document.querySelector('input[name="paymentType"]:checked').value === 'option2') {
+                input1.style.display = 'none';
+                input2.style.display = 'block';
+            }
+        });
+    });
+</script>
+<form method="post" action="{% url "account:manualP" %}" id="myForm">
+    {% csrf_token %}
+    <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="inputCity">Částka</label>
+          <input type="number" step="0.1" value="0.0" min="0" class="form-control" id="inputCity" name="amount" required>
+        </div>
+        <div class="form-group col-md-2">
+            <label for="inputCity"><br> </label>
+            <input type="text" class="form-control" readonly value="Kč" id="inputZip" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputState">Zaplatil</label>
+          <select id="inputState" class="form-control" name="acc" required>
+            <option placeholder>Vyberte</option>
+            {% for a in accounts %}
+                <option value="{{a.id}}">
+                    {{a.user.username}}-
+                    {% for m in a.member.all %}
+                        {{m.jmeno}} {{m.surname}},
+                        {% endfor %}
+                </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="paymentType" id="Radio1" value="option1">
+            <label class="form-check-label" for="Radio1">Platba na účet</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="paymentType" id="Radio2" value="option2">
+            <label class="form-check-label" for="Radio2">Platba v hotovosti</label>
+          </div>
+        </div>  
+        <div id="additionalInput1" style="witdh:100%; display: none;">
+            <h6>Podrobnosti platby</h6>
+            <div class="form-group">
+                <label for="From">Z účtu</label>
+                <input type="text" class="form-control" id="From" aria-describedby="from" name="from">
+                <small id="from" class="form-text text-muted">zadejte číslo s účtu i s lomítkem. např.: 123456789/0123</small>
+              </div>
+            <div class="form-group">
+                <label for="VS">Variabilní symbol</label>
+                <input type="text" class="form-control" id="VS" maxlength="10" name="Vs" pattern="[0-9]*" aria-describedby="vs">
+                <small id="vs" class="form-text text-muted">VS nebo číslo, pro identifikaci plátce</small>
+            </div>
+            <div class="form-group">
+                <label for="Date">Datum platby</label>
+                <input type="date" class="form-control" id="Date" name="payed" aria-describedby="date">
+                <small id="date" class="form-text text-muted">datum platby ve fromátu měsíc/den/rok</small>
+            </div>
+            <div class="form-group">
+                <label for="Tid">Číslo transakce</label>
+                <input type="text" class="form-control" id="Tid" name="nmT" aria-describedby="tid">
+                <small id="tid" class="form-text text-muted">Ve výpisu jako "Kód transakce"</small>
+            </div>
+        </div>
+        
+        <div id="additionalInput2" style="display: none;">
+            <div class="form-group">
+                <label for="Date">Datum platby</label>
+                <input type="date" class="form-control" id="Date" name="payedOn" aria-describedby="date">
+                <small id="date" class="form-text text-muted">datum platby ve fromátu měsíc/den/rok</small>
+            </div>
+            <div class="form-group">
+                <label for="PB">kdo a kde platil</label>
+                <input type="text" maxlength="30" class="form-control" id="PB" name="payedBy" placeholder="Rodič na nádraží" aria-describedby="pb">
+                <small id="pb" class="form-text text-muted">max 30 znaků</small>
+            </div>
+            <div class="form-group">
+                <label for="Date">Kdo převzal platbu(narození)</label>
+                <input type="text" class="form-control" id="VS" name="VsP" placeholder="00ddmmyyyy" maxlength="10" pattern="[0-9]*" aria-describedby="vs">
+                <small id="vs" class="form-text text-muted">Kápo=0015051968 <br>Otes=0016092000<br>Honza=0015042001<br>Kšilt=0023112003<br></small>
+
+            </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Založit platbu</button>
+</form>

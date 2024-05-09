@@ -1,0 +1,23 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+    <h2>Odeber členy tohoto účtu</h2><br>
+    
+  <form class="remMem" method="post" action="{% url "account:removeMemeber" %}">
+    {% csrf_token %}
+    <div class="split1 remMem">
+      <label for="member_id"><h4>Zvolte člena:</h4></label>
+      <select class="form-control " name="member_id" id="member_id">
+        {% for member in available_members %}
+          <option value="{{ member.id }}">{{ member.jmeno }} {{ member.surname }}</option>
+        {% endfor %}
+      </select>
+  </div>
+    <label for"Atom"><h4>Napište osobní číslo člena pro potvrzení</h4><label><br>
+    <input  class="form-control" type="text" id="Atom" name="Atom"><br>
+    <button class="btn btn-danger" type="submit">Odebrat zvoleného člena</button>
+  </form>
+    {% endblock %}
+</div>
+{% endblock %}

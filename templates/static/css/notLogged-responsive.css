@@ -1,0 +1,61 @@
+/* {% comment %} notLogged user {% endcomment %} */
+@media (max-width: 750px) {
+    header{
+        display: flex;
+        flex-direction: column;
+        height:20vh;
+        line-height: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    header img{
+        height:6rem;
+        width:4.5rem;
+    }
+    .headline{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        margin: 0rem;
+        align-items: center;    
+    }
+    .headline h1{
+        font-size: x-large;
+    }
+    .headline h2{
+        font-size:large;
+    }
+    .login{
+        width: 80%;
+    }
+    .login h1{
+        font-size: xx-large;
+    }
+    .login form p{
+        min-width: 100%;
+    }
+    .login form h2{
+        font-size: large;
+    }
+    .login form label{
+        font-size: medium;
+    }
+    .login form p label{
+        font-size: medium;
+    }
+    .login .logging .data{
+        width: 100%;
+    }
+    .login .logging p .data{
+        width: 100%;
+    }
+    .login .submit{
+        width:50%;
+    }
+    .log-questions{
+        gap:0;
+    }
+
+}

@@ -1,0 +1,67 @@
+<form method="post" action="" id="eventEditor">
+    {% csrf_token %}
+
+    <div class="form-row">
+      {{form.eventId}}
+      <div class="form-group col-md-6">
+        <label for="id_organizedBy">Organizátor</label><br>
+        {{ form.organizedBy }}
+      </div>
+      <div class="form-group col-md-6">
+        <label for="{{ form.event_type.id_for_label }}">Typ akce</label>
+        {{ form.event_type }}
+        
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="{{ form.name.id_for_label }}">Název Události</label>
+        {{ form.name }}
+          </div>
+    <div class="form-group">
+        <label for="{{ form.destination.id_for_label }}">{{ form.destination.label }}</label>
+        {{ form.destination }}
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-7">
+        <label for="{{ form.departure.id_for_label }}">{{ form.departure.label }}</label>
+        {{ form.departure }}
+      </div>
+      <div class="form-group col-md-5">
+        <label for="{{ form.meeting.id_for_label }}">{{ form.meeting.label }}</label>
+        {{ form.meeting }}
+      </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-7">
+          <label for="{{ form.arrival.id_for_label }}">{{ form.arrival.label }}</label>
+          {{ form.arrival }}
+        </div>
+        <div class="form-group col-md-5">
+          <label for="{{ form.ending.id_for_label }}">{{ form.ending.label }}</label>
+          {{ form.ending }}
+        </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.notes.id_for_label }}">{{ form.notes.label }}</label>
+          {{ form.notes }}
+        </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="{{ form.capacity.id_for_label }}">{{ form.capacity.label }}</label>
+            {{ form.capacity }}
+        </div>
+        <div class="form-group col-md-6">
+            <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+            {{ form.price }}
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+      {{ form.description }}
+    </div>
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="customCheck1" name="notify">
+      <label class="custom-control-label" for="customCheck1">Poslat zapsaným účastníkům upozornění o změnách</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Uložit změny</button>
+  </form>

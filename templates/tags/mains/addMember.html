@@ -1,0 +1,27 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+    <div class="card border-success" style="max-width: 96%;min-height:40vh;">
+        <div class="card-header bg-transparent border-success"><h2>Přidejsi si členy pod tento účet</h2></div>
+        <div class="card-body text-success">
+            <form method="post" action='/addMember'>
+                {% csrf_token %}
+                <label for="member_id">Vyber členy, kteří mají zaplaceno, ale nejsou zatím přiřazeni k žádné účtu </label>
+                <select  class="form-control form-control-lg w-100" name="member_id" id="member_id">
+                  {% for member in available_members %}
+                    <option value="{{ member.id }}">{{ member.jmeno }} {{ member.surname }}</option>
+                  {% endfor %}
+                </select><br>
+                <label for="born">Abychom si byli jistí, že myslíme stejného člena, zadejte datum narození</label>
+                <input type="date" class="form-control" id="born" name="born">
+                <br>
+                <button type="submit" class="btn btn-success">Přidat</button>
+              </form>
+        </div>
+        <div class="card-footer bg-transparent border-success"><h4>Nenašli jste člena v seznamu členů? Přidejte ho ručně. </h4>
+            <a href="/createMemeber"><button class="btn btn-primary">Vytvořit nového člena</button></a></div>
+      </div>
+    {% endblock %}
+</div>
+{% endblock %}

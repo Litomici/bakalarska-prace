@@ -1,0 +1,45 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Vytvoř nového člena</h1>
+        <br>
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col">
+                    {{form.jmeno.label}}
+                    {{form.jmeno}}
+                </div>
+                <div class="col">
+                    {{form.surname.label}}
+                    {{form.surname}}
+                </div>
+              </div>
+              <div class="form-row">
+               {{form.birthday.label}}{{form.birthday}}
+              </div>
+              <div>
+                {{form.healthProblems.label}}
+                {{form.healthProblems}}
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  {{form.GDPR}}
+                  {{form.GDPR.label}}
+                </div>
+              </div>
+            
+            <input type="submit" class="btn btn-success" value="Vytvořit a přidat k účtu">
+        </form>
+
+        
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

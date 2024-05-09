@@ -1,0 +1,10 @@
+<script>
+    function msgShow(txt) {
+      alert(txt);
+    }
+</script>
+{% for message in messages%}
+        <script>
+                msgShow("{{message}}");
+        </script>
+{% endfor %}

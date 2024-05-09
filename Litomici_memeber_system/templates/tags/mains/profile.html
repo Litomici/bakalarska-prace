@@ -1,0 +1,71 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Profil a připojení členové</h1>
+        <br>
+        <div class="card text-center" style="width:80%">
+            <div class="card-header">
+                <h2>Kontaktní údaje pro členy tohoto účtu</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item profileInformation">{{mail}}
+                      <a href="/AddNewUser"><button type="button" style="line-height: none;" class="addUSER btn btn-outline-secondary"title="Vytvořit další přístup">
+                        <i class="fa-solid fa-plus"></i>
+                      </button></a>
+                    </li> 
+                    <li class="list-group-item profileInformation">Peněženka: {{wallet}}</li>
+                    <li class="list-group-item profileInformation">{{addr1}} </li>
+                    <li class="list-group-item profileInformation">{{mobile1}}</li>
+                  </ul>
+                  {%if  secondaryContact %}
+                  <h2>Náhradní kontakt</h2>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item profileInformation">{{mail}}</li> 
+                    <li class="list-group-item profileInformation">{{addr2}} </li>
+                    <li class="list-group-item profileInformation">{{mobile2 }}</li>
+                  </ul>
+                  {% endif %}
+            </div>
+            <div class="card-body">
+              <h2 class="card-title">Členové tohoto účtu</h2>
+              <p class="card-text">
+                {% if members %}
+                  {% for member in members %}
+                  <hr>
+                  <hr>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item profileInformation"><b>{{member.jmeno}} {{member.surname}}</b>{% if member.ATOM_id|length > 0 %}<br>(osobní kód:{{member.ATOM_id}}){%endif%}</li> 
+                    <li class="list-group-item profileInformation">{{member.birthday}} </li>
+                    <li class="list-group-item profileInformation">{{member.healthProblems}}</li>
+                    {% if member.GDPR %}Fotografie a osobní informace tohoto člena <b>mohou</b> být pořizovány a uschovány pro účely klubu
+                    {% else %}
+                    Fotografie a osobní informace tohoto člena <b>NEmohou</b> být pořizovány a uschovány pro účely klubu
+                    {%endif%}
+                  </ul><br>
+                  {%endfor%}
+                {%endif%}
+              </p>
+              <a href="addMember" class="btn btn-primary">Přidat dalšího člena</a> <a href="removeMember" class="btn btn-primary">Odebrat člena</a>
+            </div>
+            <div class="card-footer text-muted">
+              2 days ago
+            </div>
+          </div>
+          <script>
+            function setHeight() {
+              var object1 = document.getElementById('object1');
+              var object2 = document.getElementById('object2');
+        
+              // Get the computed style of object2
+              var computedStyle = window.getComputedStyle(object2);
+        
+              // Set the height of object1 to match the computed height of object2
+              object1.style.height = computedStyle.height;
+            }
+          </script>
+        
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+<style>
+    .form-check-input{
+        float:left;
+        position: relative;
+        margin:0.5rem 0.3rem 0 0;
+        padding:0;
+
+    }
+</style>
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Vytvoř nového člena</h1>
+        <br>
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="create">
+        </form>
+
+        
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

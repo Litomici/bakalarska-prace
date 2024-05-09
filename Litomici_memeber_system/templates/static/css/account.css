@@ -1,0 +1,374 @@
+header{
+    min-height: 10vh;
+}
+main{
+    width: 100%;
+    display: flex;
+    min-height: 80vh;
+}
+.content{
+    margin:0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 80vh;
+}
+/* Úvodní strana */
+.welcome{
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center;
+    justify-content: center;
+    min-height: 80vh;
+}
+/* Profil page */
+.profile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0 2rem 0;
+    align-content: center;
+    flex-wrap: wrap;
+    
+}
+.profile h1{
+    font-size: xxx-large;
+    border-bottom: 5px solid black;
+}
+
+.profile h2{
+    color: #15293c;
+    padding: 0;
+    margin: 0
+}
+.profileInformation{
+    background-color:none;
+    border:none;
+    color:black;
+    }
+.addUSER{
+    margin: 0;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column-reverse;
+}
+/* Kontakt stránka */
+.contact-texts{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+    align-items: center;
+    margin: 2rem 0 0 0;
+}
+.mail-form{
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+
+.mail-form form .form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-around;
+    flex-wrap: wrap;
+    margin: 0;
+    padding:  0.5rem 0 0.3rem 0;
+}
+.mail-form form{
+    width: 100%;
+    margin: 0;
+    padding: 0.1rem;
+}
+.mail-form h4{
+    margin: 0.5rem 0;
+    font-size: large;
+}
+.mail-form form label{
+    margin: 0;
+    width: 90%;
+}
+.mail-form form input{
+    margin:0;
+    width: 90%;
+}
+.mail-form form textarea{
+    margin: 0;
+    width: 90%;
+}
+.send-btn{
+    width: 90%;
+    display: flex;
+    padding: 0 1rem;
+    flex-direction:row-reverse;
+}
+/* seznam akcí */
+
+.table{
+    
+}
+.activity-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.activity-table tr:hover {
+    background-color: #e0e0e0;
+}
+.signing-form{
+    list-style: none;
+}
+.signing-form .container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+.signing-form .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+.signing-form .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .signing-form .container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+.signing-form .container input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+.signing-form .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+.signing-form .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+.signing-form .container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+/* Tábory */
+.camps .card-body{
+    color: #15293c;
+}
+.profile .card{
+    height: fit-content;
+}
+.camps {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 80vh;
+}
+.camps .board{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+.camps .cards{
+    height: clamp(15rem, 30rem, 65vh);
+    width: clamp(17rem, 25rem, 45%);
+    color: #f5f5f5;
+    perspective: 500px;
+}
+.camps  .inner-card{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1.3s;
+    transform-style: preserve-3d;
+}
+.camps .front,.camps .back{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    position: absolute;
+    backface-visibility: hidden;
+
+
+}
+.camps .front{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-content: center;
+    background-size: cover;
+    background-position: center;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.camps .front h2{
+    text-align: center;
+    color: #f5f5f5;
+    letter-spacing: 0.2rem;
+    width: 100%;
+    background-color: rgba(19, 36, 59,0.5);
+    line-height: clamp(2rem, 2.5rem, 200%);
+}
+.camps .front button{
+    width: clamp(25%,10rem,50%);
+    height: clamp(2rem, 3.5%,4rem);
+    border-radius: 90px;
+    border: 2px solid rgba(19, 36, 59,1);
+    background: rgba(19, 36, 59,0.8);
+    color: #f5f5f5;
+    align-self: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+.camps .back{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-content: center;
+    background-color: rgba(19, 36, 59,1);
+    color: #f5f5f5;
+    transform: rotateY(180deg);
+}
+.camps .back h2{
+    border-bottom: 5px solid #365291;
+    width: 95%;
+    margin: 0 0 1rem 2.5%;
+}
+
+.camps .back .description{
+    width: 90%;
+    margin: 1rem 0;
+    align-self: center;
+    text-align: left;
+}
+.camps .back .data-line{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    line-height: 1rem;
+}
+.camps .back .data-line .data{
+    flex: 1;
+    text-align: center;
+    font-size: medium;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.camps .back .data-line .data::after{
+    content: '';
+    width: 2px;
+    height: 1.5rem;
+    background: white;
+    position: absolute;
+    top: 1rem;
+    right: 0;
+}
+.camps .back .data-line .data:last-child::after{
+display: none;
+    
+}
+.camps .back .data-line h3{
+    font-size: large; 
+    font-weight: 400;
+    color: white;
+}
+.camps .cards:hover .inner-card{
+    transform: rotateY(180deg);
+}
+.camps .btn-row{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    min-height: 14%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+}
+.camps .btn-row button{
+    width: clamp(25%,10rem,50%);
+    height: clamp(2rem, 3.5%,4rem);
+    cursor: pointer;
+    border-radius: 90px;
+    /* margin-top: 10%; */
+    border: 2px solid black;
+    background: rgb(1 17 39);
+    color: #f5f5f5;
+}
+
+/* Kontakty */
+.contact-texts{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+    align-items: center;
+}
+.event-info-list{
+    width: 90%;
+    margin: 1rem 0 1rem 0;;
+}
+.event-info-list li{
+    padding-left: 2rem;
+}
+.event-info-headline{
+    font-size: medium;
+    letter-spacing: 1px; /* Adjust as needed */
+    font-weight:bolder;
+    margin: 0;
+    padding: 0;
+}
+

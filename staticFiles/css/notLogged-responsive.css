@@ -1,0 +1,82 @@
+/* {% comment %} notLogged user {% endcomment %} */
+@media (max-width: 750px) {
+    header{
+        display: flex;
+        flex-direction: column;
+        min-height:20vh;
+        line-height: 0;
+        justify-content: center;
+        align-items: center;
+    }
+    header img{
+        height:6rem;
+        width:4.5rem;
+    }
+    .headline{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
+        margin: 0rem;
+        align-items: center;    
+    }
+    .headline h1{
+        font-size: x-large;
+    }
+    .headline h2{
+        font-size:large;
+    }
+    .login{
+        width: 90%;
+    }
+    .login h1{
+        font-size: xx-large;
+    }
+    .login form p{
+        min-width: 100%;
+    }
+    .login form h2{
+        font-size: large;
+    }
+    .login .logging label{
+        font-size: medium;
+        width: 100%;
+    }
+    .login form p label{
+        font-size: medium;
+    }
+    .login .logging .data{
+        width: 100%;
+    }
+    .login .logging input{
+        font-size: medium;
+    }
+    .login .logging p .data{
+        width: 100%;
+    }
+    .login .submit{
+        width: 50%;
+    }
+    .log-questions{
+        gap: 0;
+    }
+    .form-502100 {
+        width: 100%;
+    }
+    .w-50{
+        width: 100%;
+    }
+    .address{
+        width: 100%;
+    }
+    .city{
+        width: 69%;
+    }
+    .psc{
+        width: 29%;
+    }
+    .extraMobSpace{
+        margin-top: 1rem;
+    }
+}

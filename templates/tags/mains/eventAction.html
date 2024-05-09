@@ -1,0 +1,98 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+<script>
+  {% comment %} ,dest,meet,end,dep,arr,type,bring,cap,price,det {% endcomment %}
+  function editCurrentEvent(name,dest,meet,end,dep,arr,type,bring,cap,price,det,id,org) {
+      document.getElementById("id_organizedBy").value=org;
+      document.getElementById("eventId").value=id;
+      document.getElementById("id_name").removeAttribute("readonly");
+      document.getElementById("id_name").value=name;
+      document.getElementById("id_destination").removeAttribute("readonly");
+      document.getElementById("id_destination").value=dest;
+      document.getElementById("id_meeting").removeAttribute("readonly");
+      document.getElementById("id_meeting").value=meet;
+      document.getElementById("id_ending").removeAttribute("readonly");
+      document.getElementById("id_ending").value=end;
+      document.getElementById("id_departure").removeAttribute("readonly");
+      document.getElementById("id_departure").value=dep;
+      document.getElementById("id_arrival").removeAttribute("readonly");
+      document.getElementById("id_arrival").value=arr;
+      document.getElementById("id_event_type").removeAttribute("readonly");
+      document.getElementById("id_event_type").value=type;
+      document.getElementById("id_notes").removeAttribute("readonly");
+      document.getElementById("id_notes").value=bring;
+      document.getElementById("id_capacity").removeAttribute("readonly");
+      document.getElementById("id_capacity").value=cap;  
+      document.getElementById("id_price").removeAttribute("readonly");
+      document.getElementById("id_price").value=price;
+      document.getElementById("id_description").removeAttribute("readonly");
+      document.getElementById("id_description").value=det;
+
+  }
+  document.getElementById('eventEditor').addEventListener('submit', function(event) {
+    // Retrieve the value of the hidden input field
+    var eventIdValue = document.getElementById('eventId').value;
+
+    // Append the value to the form data
+    var formData = new FormData(this);
+    formData.append('eventId', eventIdValue);
+
+    // Update the form data
+    event.formData = formData;
+});
+</script>
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <h1>Vítej v nástroji pro správu akcí</h1>
+        <br>
+        {%include "tags/pageComponents/actionbarOptions.html"%}
+        {% if eventAction == 1 %}
+        {%include "tags/pageComponents/actionCreationForm.html"%}
+        {%endif%}
+        {% if eventAction == 2 %}
+           <div class="split-screen">
+                <div class="split1">{% include "tags/pageComponents/actionEdit.html"%}</div>
+                <div class="split2">
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Datum</th>
+                            <th scope="col">Jméno akce</th>
+                            <th scope="col">Kapacita</th>
+                            <th class="wideScreen" scope="col">Detaily</th>
+                            <th scope="col">Upravit</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for event in events %}
+                            <tr>
+                              <th scope="row">{{ event.meeting|date:"F d, Y H:i" }}</th>
+                              <td>{{ event.name }}</td>
+                              <td>{{event.assigned.all|length }}/{{event.capacity}}</td>
+                              <td class="wideScreen"><a href="{% url "event:details" event.id %}">Info</td>
+                                <td> <button onclick="editCurrentEvent('{{event.name}}','{{ event.destination}}','{{ event.meeting|date:"Y-m-d\TH:i" }}','{{ event.ending|date:"Y-m-d\TH:i" }}','{{ event.departure}}','{{ event.arrival}}','{{ event.event_type}}','{{ event.notes}}',{{ event.capacity}},{{ event.price}},'{{ event.description}}','{{event.id}}','{{event.organizedBy}}')" class="btn btn-primary" type="button">
+                                  Upravit
+                              </button>
+                                </td>
+                            </tr>
+                          {% endfor %}
+                          </tbody>
+                      </table>
+                </div>
+            </div>
+
+        {% endif %}
+        {% if eventAction == 3 %}
+          {%include "tags/pageComponents/actionAttendaceForm.html"%}
+        {% endif %}
+        {% if eventAction == 4 %}
+          {%include "tags/pageComponents/actionCancelForm.html"%}
+        {% endif %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

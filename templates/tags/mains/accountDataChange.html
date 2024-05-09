@@ -1,0 +1,69 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Upravit kontaktní údaje</h1>
+        <br>
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="id_mobile1">Telefon na zákonného zástupce</label>
+                  {{form.mobile1}}
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="id_mobile2">Záložní telefon</label>
+                  {{form.mobile2}}
+                </div>
+              </div>
+              <div class="form-group">
+                <h2>Kontaktní údaje na Rodiče</h2>
+                <label for="inputAddress">Adresa</label>
+                {{form.addres1}}
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Město</label>
+                  {{form.city1}}
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState1">Stát</label>
+                  {{form.state1}}
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">PSČ</label>
+                  {{form.psc1}}
+                </div>
+              </div>
+              <div class="form-group">
+                <h2>Kontaktní údaje na druhého Rodiče</h2>
+                <label for="inputAddress">Adresa</label>
+                {{form.addres2}}
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Město</label>
+                  {{form.city2}}
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState2">Stát</label>
+                  {{form.state2}}
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">PSČ</label>
+                  {{form.psc2}}
+                </div>
+              </div>
+            <input type="submit" class="btn btn-primary" value="Uložit změny">
+        </form>
+
+        
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

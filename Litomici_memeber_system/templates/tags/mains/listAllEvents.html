@@ -1,0 +1,61 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+  <div class="content" onload="setHeight()" id="'object2'">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Přehled všech plánovaných aktivit</h1>
+        <br>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Datum</th>
+              <th scope="col">Jméno akce</th>
+              <th scope="col">Kapacita</th>
+              <th scope="col">Detaily</th>
+              <th scope="col">Přihlášky</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for event in events %}
+              <tr>
+                <th scope="row">{{ event.meeting|date:"F d, Y H:i" }}</th>
+                <td>{{ event.name }}</td>
+                <td>{{event.assigned.all|length }}/{{event.capacity}}</td>
+                <td><a href="/event/details/{{ event.id }}">Info</td>
+                  <td> <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#members2sign{{event.id}}" aria-expanded="false" aria-controls="collapseExample">
+                    Přihlásit/Odhlásit
+                </button>
+                  </td>
+                  <td>
+                    <div class="collapse" id="members2sign{{event.id}}">
+                      <div class="card card-body">
+                          <form method="post" action="{% url 'listAll_id_add' event.id %}">
+                            {% csrf_token %}
+                              <ul class="signing-form">
+                                  {% for member in accountMembers.all %}
+                                  <li>
+                                      <label class="container" for="mem{{member.ATOM_id}}"> {{ member.jmeno }} {{ member.surname }} 
+                                      {% if member in event.assigned.all %}
+                                      <input type="checkbox" checked="checked" id="mem{{member.ATOM_id}}" name="mem{{member.ATOM_id}}">
+                                      <span class="checkmark"></span>
+                                      {% else %}
+                                      <input type="checkbox"id="mem{{member.ATOM_id}}"  name="mem{{member.ATOM_id}}">
+                                      <span class="checkmark"></span>
+                                      {% endif %}
+                                      </label>
+                                  </li>
+                                  {% endfor %}
+                              </ul>
+                              <button type="submit" class="btn btn-primary" >Uložit změny</a>
+                          </form>
+                      </div>
+                    </div>
+                  </td>
+               </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+
+{% endblock %}

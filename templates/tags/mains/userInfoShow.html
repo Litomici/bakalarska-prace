@@ -1,0 +1,22 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        <h1>Nová událost</h1>
+        <br>
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="create">
+        </form>
+
+        
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

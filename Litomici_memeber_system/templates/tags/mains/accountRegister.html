@@ -1,0 +1,22 @@
+{% extends "tags/foundations/notLoggedFoundation.html" %}
+{%block main%}
+<main>
+    <div class="banner">
+    
+    </div>
+    
+    <div class="login">
+        <h1>Zaregistruj se</h1>
+    <form action="/newAccount" method="post" class="logging">
+        <h2>Krok 2.</a>
+        {% csrf_token %}
+        {{form.as_p}}
+        {% for message in messages %}
+        <p><b>Chyba při registraci: </b>{{message}}</p>
+        {% endfor %}
+        <input type="submit" class="submit" value="Registrovat">
+    </form>
+    </div>
+    
+</main>
+{% endblock %}

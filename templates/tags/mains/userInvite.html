@@ -1,0 +1,17 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+        <h1 class="extratopspace mrg">Přizvěte další osobu do vašeho účtu</h1><br>        
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="noPadding row justify-content-center center-text ">
+                <div class="col-md-5 center-text">{{ form.newUserEmail.label_tag }}<br>
+            {{ form.newUserEmail }}<br>
+        </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary extratopspace">Odeslat pozvánku</button>
+        </form>
+    {% endblock %}
+</div>
+{% endblock %}

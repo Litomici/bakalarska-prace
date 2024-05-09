@@ -1,0 +1,50 @@
+{% extends "tags/foundations/notLoggedFoundation.html" %}
+{%block main%}
+<main>
+    <div class="banner">
+    
+    </div>
+    
+    <div class="login">
+        <h1>Zaregistruj se</h1>
+    <form action="{% url 'account:newAccount'%}" method="post" class="logging">
+        <h2>Krok 2.</h2>
+        {% csrf_token %}
+        <div class="userform">
+              <input type="text" class="form-control" placeholder="{{username}}"readonly>
+              <div style="display:none">{{form.user}}</div>
+          </div>
+        <div class="formRow ">
+          <div class="form-502100 extraMobSpace">
+            <label for="{{form.mobile1.id_for_label}}">{{form.mobile1.label}}</label>
+            {{form.mobile1}}
+          </div>
+            <div class="form-502100 extraMobSpace">
+              <label for="{{form.mobile2.id_for_label}}">{{form.mobile2.label}}</label>
+              {{form.mobile2}}
+          </div>
+        </div>
+        <div class="formRow w-100">
+          <div class="form-group address">
+            <label for="{{form.addres1.id_for_label}}">{{form.addres1.label}}</label>
+            {{form.addres1}}
+        </div>
+            <div class="form-group city">
+              <label for="{{form.city1.id_for_label}}">{{form.city1.label}}</label>
+              {{form.city1}}
+            </div>
+            <div class="form-group psc ">
+              <label for="{{form.psc1.id_for_label}}">{{form.psc1.label}}</label>
+              {{form.psc1}}
+            </div>
+          </div>
+        {% for message in messages %}
+        <p><b>Chyba při registraci: </b>{{message}}</p>
+        {% endfor %}
+        <input type="submit" class="btn btn-primary" value="Registrovat"><br>
+    </form>
+    <br>
+    </div>
+    
+</main>
+{% endblock %}

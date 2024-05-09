@@ -1,0 +1,46 @@
+<ul>
+    {% comment %} profile {% endcomment %}
+    {% if 'profileInfo' in request.path or 'AddNewUser' in request.path or 'addMember' in request.path or 'createMemeber' in request.path or 'removeMember' in request.path or 'changeData' in request.path %}
+        <a href="{% url "account:profile" %}" class="thisPage"><li id="nav-profile" ><i class="fa-solid fa-user"></i></li></a>
+    {% else %}
+        <a href="{% url "account:profile" %}"><li id="nav-profile" ><i class="fa-solid fa-user"></i></li></a>
+    {% endif %}
+    {% comment %} plán akcí {% endcomment %}
+    {% if 'event/listAll' in request.path or 'event/details/' in request.path %}
+    <a href="{% url "event:listAll" %}"  class="thisPage"><li id="nav-schedual" ><i class="fa-solid fa-calendar-days"></i></li></a>
+    {% else %}
+    <a href="{% url "event:listAll" %}"><li id="nav-schedual" ><i class="fa-solid fa-calendar-days"></i></li></a>
+    {% endif %}
+    {% comment %} kontakt {% endcomment %}
+    {% if 'sendMsg' in request.path %}
+    <a href="{% url "account:sendMSG" %}"  class="thisPage"><li id="nav-contact" ><i class="fa-solid fa-phone"></i></li></a>
+    {% else %}
+    <a href="{% url "account:sendMSG" %}" ><li id="nav-contact" ><i class="fa-solid fa-phone"></i></li></a>
+    {% endif %}
+    {% comment %} tábor {% endcomment %}
+    {% if 'event/listCamps' in request.path or 'event/campRegister/' in request.path %}
+    <a href="{% url "event:listCamps" %}"  class="thisPage"><li id="nav-camps" ><i class="fa-solid fa-campground"></i></li></a>
+    {% else %}
+    <a href="{% url "event:listCamps" %}"><li id="nav-camps" ><i class="fa-solid fa-campground"></i></li></a>
+    {% endif %}
+
+    
+    {% if role >= 1 %}
+    <!-- for leader-->
+    {% if 'event/eventTool' in request.path%}
+    <a href="{% url "event:tool"%}" class="thisPage"><li><i class="fa-solid fa-clipboard-user"></i></li></a>
+    {% else %}
+    <a href="{% url "event:tool"%}"><li><i class="fa-solid fa-clipboard-user"></i></li></a>
+    {% endif %}
+        
+    {% endif %}
+    {% if role >= 2 %}
+    <!-- for econom -->
+    <a href="{% url "account:economy" %}"><li><i class="fa-regular fa-money-bill-1"></i></li></a>
+    {% endif %}
+    {%if  role >= 3 %}
+    <!-- for Admin/heads -->
+    <a href="{% url "account:showMembers" %}"><li><i class="fa-solid fa-users-gear"></i></li></a>
+    {% endif %}
+    <a href="{% url "account:logout" %}"><li id="nav-out" ><i class="fa-solid fa-right-from-bracket"></i></li></a>
+</ul>

@@ -1,0 +1,122 @@
+header{
+    width: 100%;
+    max-height: 16vh;
+    display: flexbox;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #13243b;
+    color: #f5f5f5;
+
+}
+header img{
+    width: auto ;
+    max-height: 15vh;
+    justify-self: left;
+}
+
+header .headline{
+    display: inline-flex;
+    justify-content: space-between;
+    justify-self: left;
+    width: auto;
+    flex-wrap: wrap;
+}
+header .headline h1{
+    margin: 0;
+    padding: 0;
+}
+header .headline ul li:hover{
+    background: black;
+}
+
+main .main-tab .main-coll-nav nav{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #15293c;
+    color: #f5f5f5;
+    font-size: larger;
+
+}
+.logout{
+    vertical-align: bottom;
+    display: flex;
+    justify-content: center;
+
+}
+.main-tab{
+    display: table;
+    width: 100%;
+}
+.main-coll-nav{
+    padding: 0.5rem 0 0 0;
+    vertical-align: baseline;
+    display: table-cell;
+    width: 20%;
+    color: #f5f5f5;
+    background: #13243b;
+    justify-content: start;
+}
+.main-coll-cont{
+    display: table-cell;
+    width: 80%;
+}
+.main-coll-Lout{
+    display: table-cell;
+    width: 20%;
+    color: #f5f5f5;
+    background: #13243b;
+    justify-content: start; 
+    vertical-align: bottom;
+    padding: 0 0 2rem 0; 
+}
+.main-coll-nav ul{
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.main-coll-nav ul a{
+    color: #f5f5f5;
+    text-decoration: none;
+}
+.main-coll-nav ul a:visited{
+    color: #f5f5f5;
+}
+.main-coll-nav ul a{
+    color: #f5f5f5;
+}
+.main-coll-nav ul li{
+    margin: 0.5rem 0 0.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 3rem;
+    width: 100%;
+    cursor: pointer;
+    font-size: larger;
+
+}
+.main-coll-nav ul a:visited{
+    color: #f5f5f5;
+}
+.main-coll-nav ul li:hover{
+  background: rgba(185, 208, 240, 0.7); 
+}
+.main-coll-nav .td2 button{
+    margin:0 0 1rem 0;
+}
+
+.main-coll-nav ul li button{
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+}
+.slimScreen{
+    display: none;
+}

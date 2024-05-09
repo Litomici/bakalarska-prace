@@ -1,0 +1,56 @@
+header{
+    width: 100%;
+    max-height: 16vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #f5f5f5;
+    background: #13243b;
+}
+header img{
+    width: auto ;
+    max-height:  15vh;
+    justify-self: left;
+}
+
+header .headline{
+    display: inline-flex;
+    justify-content: space-between;
+    justify-self: left;
+    width: 90%;
+    flex-wrap: wrap;
+}
+
+header .headline ul li:hover{
+    background: black;
+}
+main nav{
+    width: 20%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #15293c;
+    font-size: larger;
+    color:  #f5f5f5;
+    
+}
+nav ul{
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+main nav ul li{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 3rem;
+    width: 100%;
+    cursor: pointer;
+}
+main nav ul li:hover{
+  background-color: rgba(19, 36, 59,0.7); 
+}

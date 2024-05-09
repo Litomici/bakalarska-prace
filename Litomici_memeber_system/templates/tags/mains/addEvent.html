@@ -1,0 +1,20 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+        <h1>Nová událost</h1>
+        <br>
+        <h2>role={{ role }}</h2><br>
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <form action="/event/create" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="create">
+        </form>
+
+        
+    {% endblock %}
+</div>
+{% endblock %}

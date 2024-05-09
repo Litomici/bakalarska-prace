@@ -1,0 +1,155 @@
+@media (max-width: 750px) {
+main{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+.wideScreen{
+    display: none;
+}
+.slimScreen{
+    display: flex;
+    min-height: 8vh;
+    width: 100%;
+    color: #f5f5f5;
+    background: #13243b;
+}
+.slimScreen button{
+    margin: 1%;
+    width: 13%;
+    align-self: flex-end;
+}
+.slimScreen .topnav{
+    width:85%;
+    transition: 0.5;
+}
+.slimScreen ul{
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-around;;
+    align-items: center;
+    margin:0;
+    padding:0;
+}
+.slimScreen .topnav ul a{
+    width: 10%;
+    margin: 0 0.3% 0 0.3%;
+    text-align: center;
+    min-height: 1.5rem;
+    color: #f5f5f5;
+    text-decoration: none;
+}
+.thisPage{
+    text-shadow: limegreen -7px -5px 0px;
+}
+.slimScreen .topnav ul a:visited{
+    color: #f5f5f5;
+    text-decoration: none;
+}
+.slimScreen i{
+    color:#f5f5f5;
+    font-size: 1.8rem;
+}
+.rotate-180 {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease; /* Optional: Add a smooth transition effect */
+}
+main h1{
+    font-size: x-large;
+}
+.card{
+    margin: 1rem 0;
+}
+.content{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    min-height: 80vh;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+}
+.profile{
+    justify-content: flex-start;
+    /* padding: 0 1rem; */
+}
+.profile h1{
+    font-size: xx-large;
+}
+.profile h2{
+    font-size: x-large;
+
+}
+.profile .card{
+    width: 96%;
+}
+.extratopspace{
+    margin-top: 1rem;
+}
+.profile .card ul li{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+.evnt{
+    justify-content: flex-start; 
+}
+
+.welcome{
+    padding: 0 0rem;
+}
+.noPadding{
+    margin-right :0;
+    margin-left: 0;
+    padding: 0;
+}
+.table td, .table th {
+    padding: 0.69rem;
+}
+.send-btn{
+    width: 100%;
+    display: flex;
+    /* padding: 0 1rem; */
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.actionBar span{
+    display: none;
+}
+.actionBar a{
+    width: 49.5%;
+}
+.hiddenOF{
+    overflow: hidden;
+}
+.split-screen{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+.form-row{
+    margin:0;
+}
+.split1,.split2{
+    width:100%;
+    margin-top: 1rem;
+}
+.capPadding{
+    padding: 0.7rem 0;
+}
+}

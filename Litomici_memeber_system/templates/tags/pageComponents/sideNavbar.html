@@ -1,0 +1,18 @@
+<ul>
+    <a href="/profileInfo"><li id="nav-profile" >Profil</li></a>
+    <a href="/event/listAll"><li id="nav-profile" >Rozvrh akcí</li></a>
+    <a href="/sendMsg"><li id="nav-profile" >Kontaktuj nás</li></a>
+    <a href="/event/listCamps"><li id="nav-camps" >Tábory</li></a>
+    {% if role >= 1 %}
+    <!-- for leader-->
+        <a href="event/eventTool"><li>správa akcí</li></a>
+    {% endif %}
+    {% if role >= 2 %}
+    <!-- for econom -->
+        <li>Platby</li>
+    {% endif %}
+    {%if  role >= 3 %}
+    <!-- for Admin/heads -->
+        <li>Správa členů</li>
+    {% endif %}
+</ul>

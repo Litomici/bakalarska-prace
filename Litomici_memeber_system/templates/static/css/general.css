@@ -1,0 +1,37 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #171717;
+}
+main{
+    display:flex;
+    width: 100%;
+}
+footer{
+    width: 100%;
+    min-height: 40vh;
+    display: flex;
+    background-color: #484a4a;
+    color: #c2c4c4;
+    justify-content: center;
+    align-content: center;
+}
+footer div h3{
+    color: #d1d1d1;
+    margin: 0;
+    padding: 0;
+    font-size: larger;
+}
+footer div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+footer div p{
+    text-align: center;
+}
+
+

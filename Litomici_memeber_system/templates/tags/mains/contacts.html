@@ -1,0 +1,58 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+{% load static %}
+    <div class="content">
+        {% block Content %}
+            <div class="profile" id="Profile">    
+               <h1>Důležité kontakty na naše vedoucí</h1>
+               <div class="contact-texts">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'img/Kuderova.jpg' %}" class="card-img-top" alt="Hlavní vedoucí">
+                        <div class="card-body">
+                            <h5 class="card-title">Kateřina Kuderová<br>"Kapitánka"</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Hlavní vedoucí</h6>
+                            <p class="card-text">
+                                Vaše dotazy spojené s administrací a financemi směřujte prosím ke mně.<br>
+                                <br>
+                                Kuderova@seznam.cz<br>
+                                +420 111 222 333<br>
+                            </p>
+                        </div>
+                    </div>
+                
+                    <div class="card" style="width: 18rem;">
+                        <img src="{% static 'img/charouzd.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">Filip Charouzd<br>"Otes"</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Zástupce hlavní vedoucí</h6>
+                        <p class="card-text">
+                            Přihlášky, oraganizace akcí nebo technický dotaz?<br>
+                            Zeptej te se!<br>
+                            <br>
+                            Charouzd.f@seznam.cz<br>
+                            +420 702 210 101
+                            </p>
+                        </div>
+                    </div>
+               </div>
+               <br>
+               <div class="mail-form">
+               <h2>Nevíš komu bys měl napsat?</h2>
+               <h4>Napiš nám přimo tady a my ti odpovíme hned, jak to bude možné</h4><br> 
+                
+               <form  method="post" action="">
+                {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.subject.id_for_label }}">Předmět:</label><br>
+                        {{ form.subject }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.text.id_for_label }}">Tvoje zpráva:</label><br>
+                        {{ form.text }}
+                    </div>
+                    <div class="send-btn"><button type="submit" class="btn btn-lg btn-primary"><i class="fa-solid fa-paper-plane" style="color: #ffffff;"></i> Odeslat zprávu</button></div>
+                </form>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+dj-database-url = "*"
+gunicorn = "==21.2.0"
+packaging = "==23.2"
+psycopg2 = "*"
+sqlparse = "==0.4.4"
+typing-extensions = "==4.8.0"
+tzdata = "*"
+whitenoise = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"

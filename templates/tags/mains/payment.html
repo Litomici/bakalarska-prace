@@ -1,0 +1,99 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+    {% block Content %}
+
+    <div class="profile" id="Profile">
+        <h1 class="extratopspace mrg">Stav peněženky</h1><br>        
+        <div class="card mb-3" style="max-width: 90%;">
+            <div class="row no-gutters">
+              <div class="col-md-8">
+                <div class="card-body">
+                    <form method="post" action="{% url "account:payment" %}">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-8">
+                                <label for="inputEmail4">Číslo účtu</label>
+                                <input type="text" class="form-control" id="inputEmail4" name="IBAN" value="{{payment.IBAN}}" readonly >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputPassword4">Kód banky</label>
+                                <input type="text" class="form-control" id="inputPassword4" name="bankCode" value="{{payment.bankCode}}" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress">Název příjemce</label>
+                            <input type="text" class="form-control" id="inputAddress" name="company" value="{{payment.company}}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputAddress2">Zpráva pro příjemce</label>
+                            <input type="text" class="form-control" id="inputAddress2" name="msg" value="{{payment.msg}}"readonly>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputCity">Variabilní symbol</label>
+                                <input type="text" class="form-control" id="inputCity" name="vars" value="{{payment.vars}}"readonly>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputZip">Částka</label>
+                                <input type="number" class="form-control" id="inputZip" name="amount" value="{{payment.amount}}"readonly>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="inputState">Měna</label>
+                                <input type="text" id="inputState" value="Kč" class="form-control" name="currency"  readonly>
+                                    
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                                <label class="form-check-label" for="gridCheck">
+                                    Ano, potvrzuji, že jsem platbu úspěšně zadal a nyní čeká na provedení.
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Zaplatil jsem</button>
+                    </form>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <img style="max-width:100%" src="http://api.paylibo.com/paylibo/generator/czech/image?accountNumber=213749613&bankCode=0600&amount={{payment.amount}}&currency=CZK&vs={{payment.vars}}&message=payment.msg" alt="qrcode">
+              </div>
+            </div>
+          </div>
+          <h1 class="extratopspace mrg">Zařazené platby čekající na potvrzení Banky</h1><br>   
+          {% for p in waiting %}
+          <div class="card">
+            <h5 class="card-header">Platba částky {{p.amount}} Kč</h5>
+            <div class="card-body">
+                {% if p.payed_in_cash %}
+                <h5 class="card-title">Uhrazeno v hotovosti</h5>
+              <p class="card-text">Datum vytvoření: {{p.creation_date}}<br>
+                 Potvrzeno: {% if p.payed_date is None %}
+                    Platbu musí potvrdit Hlavní vedoucí 
+                 {% else %}
+                    peníze předány {{p.payed_date}}
+                 {% endif %}
+
+                </p>
+            </div>
+            {% else %}
+                
+              <h5 class="card-title">Variabilní symbol: {{p.var_symbol}}</h5>
+              <p class="card-text">Datum vytvoření: {{p.creation_date}}<br>
+                 Potvrzeno: {% if p.payed_date is None %}
+                    Čeká na potvrzení bankou
+                 {% else %}
+                    {{p.payed_date}} z účtu {{p.payment_from}}
+                 {% endif %}
+
+                </p>
+            </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div> 
+    {% endblock %}
+</div>
+{% endblock %}

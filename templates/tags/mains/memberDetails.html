@@ -1,0 +1,73 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+{% load static %}
+    <div class="content">
+        {% block Content %}
+            <div class="profile" id="Profile">    
+               <h1>{{member.jmeno}} {{member.surname}} </h1>
+               <div class="card text-center" style="width:80%">
+                <div class="card-header">
+                    <h2>Důležité informace o členovi</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item profileInformation">{{member.ATOM_id}}</li> 
+                        <li class="list-group-item profileInformation">{{member.birthday}} </li>
+                        <li class="list-group-item profileInformation">
+                            {% if member.GDPR %}Je dovoleno pořizovat fotografie a viedozáznamy člena{%else%}Byl vyjádřen nesouhlas s pořizování fotek{% endif %}</li>
+                        
+                        <li class="list-group-item profileInformation">{{member.healthProblems}}</li>
+                      </ul>
+                </div>
+                
+                    <div class="full-line">
+                        <a class="btn btn-primary w-100" data-toggle="collapse" href="#Members" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                            <i class="fa-solid fa-circle-chevron-up"></i> Kontaktní údaje
+                        </a>
+                    </div>
+                    <div class="innerCardBody">
+                        <div class="collapse height" id="Members">
+                        <div class="card card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item profileInformation">{{account.user}}</li> 
+                                <li class="list-group-item profileInformation">{{account.mobile1}} </li>
+                                <li class="list-group-item profileInformation">{{account.addres1}} {{account.city1}}{{account.psc1}}</li>
+                                <li class="list-group-item profileInformation">Druhý rodič:{{account.mobile2}}</li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="full-line">
+                        <a class="btn btn-primary w-100" data-toggle="collapse" href="#EventsS" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                            <i class="fa-solid fa-circle-chevron-up"></i> Seznam přihlášených akcí
+                        </a>
+                    </div>
+                    <div class="innerCardBody">
+                        <div class="collapse height" id="EventsS">
+                            <div class="card card-body">
+                                <ul class="list-group list-group-flush">
+                                   {% for e in signedEvents %}
+                                    <li>{{e.name}} ({{e.meeting|date:"d"}}. {{e.meeting|date:"m"}}. {{e.meeting|date:"Y"}})</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+            <div class="full-line">
+                <a class="btn btn-primary w-100" data-toggle="collapse" href="#EventsA" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                    <i class="fa-solid fa-circle-chevron-up"></i> Seznam navštívených akcí
+                </a>
+            </div>
+            <div class="innerCardBody">
+                <div class="collapse height" id="EventsA">
+                    <div class="card card-body">
+                        <ul class="list-group list-group-flush">
+                            {% for e in attendedEvents %}
+                                <li>{{e.name}}( {{e.meeting|date:"d"}}. {{e.meeting|date:"m"}}. {{e.meeting|date:"Y"}})</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

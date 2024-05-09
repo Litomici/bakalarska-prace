@@ -1,0 +1,31 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+<style>
+    .form-check-input{
+        float:left;
+        position: relative;
+        margin:0.5rem 0.3rem 0 0;
+        padding:0;
+
+    }
+</style>
+    <div class="content">
+    {% block Content %}
+    <div class="profile" id="Profile">
+        {% for message in messages %}
+        <p><b>{{message}}</b></p>
+        {% endfor %}
+        <h1>Výtej v nástroji pro správu akcí</h1>
+        <br>
+        <div>
+            <a href="">Vytvořit novou akci</a>
+            <a href="">Upravit existující akci</a>
+            <a href="">Zapsat docházku</a>
+            <a href="">Zrušit akci</a>
+        </div>
+
+        
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

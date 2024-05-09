@@ -1,0 +1,106 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+    <div class="content">
+        {% block Content %}
+            <div class="profile" id="Profile">
+                <div class="card">
+                    <div class="card-header">
+                        <h1>{{event.name}}</h1>
+                        <h2>
+                            {% if event.meeting|date:"d" == event.ending|date:"d" %}
+                            {{event.meeting|date:"d"}}. {{event.meeting|date:"m"}}. {{event.meeting|date:"Y"}}
+                            {% else %}
+                            Od {{event.meeting|date:"d"}}. {{event.meeting|date:"m"}}. {{event.meeting|date:"Y"}} do {{event.ending|date:"d"}}. {{event.ending|date:"m"}}. {{event.ending|date:"Y"}}
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <h3>O akci</h3>
+                        <ul class="list-group list-group-flush event-info-list">
+                            <li class="list-group-item"><span class="event-info-headline">Sraz:</span>&emsp; {{event.departure}} v {{ event.meeting|time:"H:i" }}</li>
+                            <li class="list-group-item"><span class="event-info-headline">Konec:</span>&emsp; {{event.arrival}} v {{ event.ending|time:"H:i" }}</li>
+                            <li class="list-group-item"><span class="event-info-headline">Cena z osobu</span>&emsp;{{event.price}}Kč</li>
+                            <li class="list-group-item"><span class="event-info-headline">kapacita:</span>&emsp; {{event.assigned.all|length }}/{{event.capacity}}</li>
+                            <li class="list-group-item"><span class="event-info-headline">Cíl akce:</span>&emsp;{{event.destination}}</li>
+                        </ul>
+                        <h5>Podrobnější popis akce</h5>
+                        <p class="card-text">
+                          {{event.description}}
+                        </p>
+                        <h5>Co s sebou?</h5>
+                        <p class="card-text">
+                          {{event.notes}}
+                        </p>
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#signed" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Docházka
+                            </a>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#members2sign" aria-expanded="false" aria-controls="collapseExample">
+                                Přidat nepřihlášeného člena
+                            </button>
+                        </p>
+                        <div class="collapse" id="signed">
+                            <div class="card card-body">        
+                                {% if event.assigned.all %}
+                                <h4>Na {% if event.event_type == 'vylet' %}
+                                      výlet
+                                  {% elif event.event_type == 'tabor_vyprava' %}
+                                      tábor/výpravu
+                                  {% elif event.event_type == 'oddilovka' %}
+                                      oddílovku
+                                  {% elif event.event_type == 'akce_pro_verejnost' %}
+                                      akci pro veřejnost
+                                  {% elif event.event_type == 'jine' %}
+                                      tuto akci
+                                  {% else %}
+                                      tuto akci
+                                  {% endif %}
+                                   Dorazily:</h4><br>
+                                   <form method="post" name="attendaceForm"action="">
+                                    {% csrf_token %}
+                                      <ul class="signing-form">
+                                          {% for member, is_present in tempAtt %}
+                                          <li>
+                                              <label class="container" for="mem{{member.ATOM_id}}"> {{ member.jmeno }} {{ member.surname }} 
+                                              {% if is_present%}
+                                              <input type="checkbox" checked="checked" id="mem{{member.ATOM_id}}" name="mem{{member.ATOM_id}}">
+                                              <span class="checkmark"></span>
+                                              {% else %}
+                                              <input type="checkbox"id="mem{{member.ATOM_id}}"  name="mem{{member.ATOM_id}}">
+                                              <span class="checkmark"></span>
+                                              {% endif %}
+                                              </label>
+                                          </li>
+                                          {% endfor %}
+                                      </ul>
+                                      <div class="collapse" id="members2sign">
+                                        <div class="card card-body">
+                                                <ul class="signing-form">
+                                                    {% for member in notsignedMembers %}
+                                                    <li>
+                                                        <label class="container" for="mem{{member.ATOM_id}}"> {{ member.jmeno }} {{ member.surname }}       
+                                                        <input type="checkbox"id="mem{{member.ATOM_id}}"  name="mem{{member.ATOM_id}}">
+                                                        <span class="checkmark"></span>
+                                                        </label>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#members2sign" aria-expanded="false" aria-controls="collapseExample">
+                                        Přidat nepřihlášeného člena
+                                    </button>
+                                      <button type="submit" class="btn btn-primary" >Uložit změny</a>
+                                  </form>
+                                {% else %}
+                                <p>Zatím není nikdo přihlášen</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>  
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %} 

@@ -1,0 +1,47 @@
+{% extends "tags/foundations/LoggedUserFoundation.html" %}
+{%block main%}
+{% load static %}
+    <div class="content">
+        {% block Content %}
+            <div class="profile" id="Profile">    
+               <h1>Všichni členové a jejich účty</h1>
+               <div class="outerCard">
+                    <div class="full-line">
+                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#Members" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                        <i class="fa-solid fa-circle-chevron-up"></i> Přehled všech členů oddílu
+                    </a>
+                    </div>
+                  <div class="innerCardBody">
+                    <div class="collapse height" id="Members">
+                      <div class="card card-body">
+                        <ul class="list-group list-group-flush">
+                            {%for m in members%}
+                                <li class="list-group-item"><p>{{m.name}}</p><p>{{m.born}}</p><p>{{m.phone}}</p><p><a href="{% url "account:memberDetail" m.id %}">Více info</a></p></li>
+                            {% endfor %}
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+               <div class="outerCard">
+                    <div class="full-line">
+                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#Events" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                        <i class="fa-solid fa-circle-chevron-up"></i> Všechny naše akce
+                    </a>
+                    </div>
+                  <div class="innerCardBody">
+                    <div class="collapse height" id="Events">
+                      <div class="card card-body">
+                        <ul class="list-group list-group-flush">
+                            {%for e in events%}
+                                <li class="list-group-item"><p><h5>{{e.name}}</h5></p><p>{{e.meeting}} - {{e.ending}}</p><br><p><a href="{% url 'event:details' e.id %}">Více info</a></p><br><p><a href="{% url "account:sendEmail" 5 e.id %}" type="button" class="btn btn-dark">Upozornit přihlášené, že se akce blíží</a><br> <br><a href="{% url "account:sendEmail" 6 e.id %}" type="button" class="btn btn-danger">Upozornit nepřihlášené, že je poslední možnost přihlášení</a></p></li>
+                            {% endfor %}
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+               </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}
