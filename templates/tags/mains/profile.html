@@ -50,9 +50,9 @@
                     <li class="list-group-item profileInformation"><b>{{member.jmeno}} {{member.surname}}</b>{% if member.ATOM_id|length > 0 %}<br>(osobní kód:{{member.ATOM_id}}){%endif%}</li> 
                     <li class="list-group-item profileInformation">{{member.birthday}} </li>
                     <li class="list-group-item profileInformation">{{member.healthProblems}}</li>
-                    {% if member.GDPR %}Fotografie a osobní informace tohoto člena <b>mohou</b> být pořizovány a uschovány pro účely klubu
+                    {% if member.GDPR %}Fotografie a osobní informace tohoto člena <b>MOHOU</b> být pořizovány a uschovány pro účely klubu
                     {% else %}
-                    Fotografie a osobní informace tohoto člena <b>NEmohou</b> být pořizovány a uschovány pro účely klubu
+                    Fotografie a osobní informace tohoto člena <b>NEMOHOU</b> být pořizovány a uschovány pro účely klubu
                     {%endif%}
                   </ul><br>
                   {%endfor%}
@@ -61,7 +61,7 @@
               <a href="addMember" class="btn btn-primary extratopspace">Přidat dalšího člena</a> <a href="removeMember" class="btn btn-primary extratopspace">Odebrat člena</a>
             </div>
             <div class="card-footer text-muted">
-              2 days ago
+              Poslední přihlašení {{ lastlog|date:'d/m/Y' }}
             </div>
           </div>
           <script>

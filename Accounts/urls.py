@@ -16,6 +16,7 @@ urlpatterns = [
     path("notify2pay/<str:account_id>",views.notify2pay,name="notify2pay"),
     path("addMoney2pay/<str:account_id>",views.addMoney2pay,name="need2pay"),
     path("manualPayment",views.manual_payment,name="manualP"),
+    path("maunalDown",views.download_pdf,name="getManual"),
     #sending an email
     path("sendNotification/<int:action_id>/<int:event_id>",views.sendNotification,name="sendEmail"),#type: ignore
     path("sendMsg",views.sendMessage,name="sendMSG"),#simple message from user

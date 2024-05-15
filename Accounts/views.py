@@ -1,7 +1,8 @@
 from asyncio import events
 from email import message
+from os import error
 from django.utils import timezone
-from django.http import Http404, HttpResponse
+from django.http import FileResponse, Http404, HttpResponse
 from Litomici_memeber_system.settings import EMAIL_HOST_USER
 from .forms import ContactForm
 from django.shortcuts import render
@@ -445,6 +446,14 @@ def sendMessage(request):
     else:
         messages.error(request,MSG.timeOut)
         return redirect("account:login")
+def download_pdf(request):
+    # Specifikujte cestu k vašemu PDF souboru
+    file_path = "extraFiles/manual.pdf"
+    # Otevřete soubor a vytvořte FileResponse
+    try:
+        return FileResponse(open(file_path, 'rb'), as_attachment=True)
+    except FileNotFoundError:
+        raise Http404()
 #member operations
 def showMembers(request):
     if isUserLoggedWithPermission(request,1):
@@ -614,12 +623,20 @@ def signUp(request):#prvni krok registrace
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             
-            user = form.save()
-            # Log in the user
+            user = form.save(commit=False)
+            user.email=user.username   # Nastavení username na hodnotu emailu
+            user.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                email = EmailMessage(
+                    subject="Vítejte v sytému Litomíci",
+                    body=f"Zdrávimě tě litomíku,\n\n právě jsi se úspěšně zaregistroval do našeho systému. Tvým prvním krokem by mělo být zkontrolovat si kontaktní údaje v sekci profil a přidat všechny tvé členy. Bez toho se totiž nemůžeš nikam zapsat.\n\n Pokud jsi nejsi vědom toho, že by jsi se registroval, odpověz nám na tento email TuristakLitomici@gmail.com a my to vyřešíme.\n\n Těšíme na brzkou viděnou,\nVaši Litomíci.  ",
+                    from_email="turistaklitomici@gmail.com",  # You can set a default email in your settings.py
+                    to=[username],
+                )
+                email.send()
                 login(request, user)
                 # Redirect to the next step of registration (adjust the URL accordingly)
                 messages.success(request,MSG.regStep1Success)
@@ -650,7 +667,20 @@ def NewAccount(request):#druhý krok registrace
         form = NewAccountForm(request.POST)
         tmp=form.is_valid()
         if form.is_valid():
-            tmpr = form.save()#commit=False
+            tmpr = form.save(commit=False)#commit=False
+            if not all(char.isdigit() or char == '+' for char in tmpr.mobile1):
+                messages.error(request,MSG.newMemberValidFail(form.errors.items()))
+                form = NewAccountForm(initial={'user': request.user})
+                return render(request, "tags/mains/accountRegister.html", {'form': form,"username":request.user.username})
+            if not all(char.isdigit() or char == '+' for char in tmpr.mobile2):
+                messages.error(request,MSG.newMemberValidFail(form.errors.items()))
+                form = NewAccountForm(initial={'user': request.user})
+                return render(request, "tags/mains/accountRegister.html", {'form': form,"username":request.user.username})
+            if not all(char.isdigit() or char == ' ' for char in tmpr.psc1):
+                messages.error(request,MSG.newMemberValidFail(form.errors.items()))
+                form = NewAccountForm(initial={'user': request.user})
+                return render(request, "tags/mains/accountRegister.html", {'form': form,"username":request.user.username})
+            tmpr.save()
             tmpr.user = request.user  # Assign the logged-in user
             tmpr.users.add(request.user)
             tmpr.save()
@@ -765,8 +795,11 @@ def signIn(request):
                 messages.success(request,MSG.regStep1Success)
                 return redirect('account:newAccount')  # Change 'next_step_registration' to your actual URL
             return redirect("account:logged")
+        messages.error(request,"Nesprávné heslo")
     return render(request, "index.html")
 def sign_out(request):
+    request.user.last_login=datetime.now()
+    request.user.save()
     logout(request)
     messages.success(request,MSG.logOut)
     return signIn(request)
@@ -784,7 +817,6 @@ def userData(request):
         "wallet":"",
         "payment":""  
     }
-    #2111093800/2700
     if isUserLogged(request):
         account = getUsersAccount(request)
         usernames = account.users.values_list('username', flat=True)
@@ -802,7 +834,6 @@ def userData(request):
             varS=account.mobile1[-9:]
         else:
             varS="404"
-        payCode=f"http://api.paylibo.com/paylibo/generator/czech/image?accountNumber=2111093800&bankCode=2700&amount={toPay}&currency=CZK&recipientName=Turistický oddíl Litomíci&vs={varS}&message={msg}"
         dic={
             "role": account.position,#0=user;1=leader;2=econom;3=admin
             "mail":usernamesSTR,
@@ -810,7 +841,6 @@ def userData(request):
             "mobile1": add_spaces(account.mobile1),
             "wallet":account.wallet,
             "lastlog":request.user.last_login,
-            "payLink":payCode,
         }
         if account.addres2 == "" or account.psc2 == "" or account.city2 == "":
             dic["secondaryContact"]=False
